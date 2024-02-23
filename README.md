@@ -1,8 +1,8 @@
 # If-Then-Else
 
-The fundamental component selector that the React team forgot to ship.
+The missing conditional renderer that the React team forgot to ship.
 
-Write clean UI components that can be visually read as a JS function.
+Write clean UI components that can be read as a visual JS function.
 
 ## Render a simple child when true
 ```tsx

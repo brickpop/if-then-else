@@ -131,14 +131,14 @@ describe('If component', () => {
 
   describe('Children array', () => {
     describe('Extraneous children', () => {
-      it('Should ignore extraneous children', () => {
+      it('Should render pure non-conditional children', () => {
         let actual = renderToString(
           <If condition={true}>
             <p>Hello</p>
             <p>World</p>
           </If>
         );
-        expect(actual).toEqual('');
+        expect(actual).toEqual('<p>Hello</p><p>World</p>');
 
         actual = renderToString(
           <If condition={true}>
@@ -146,7 +146,7 @@ describe('If component', () => {
             World
           </If>
         );
-        expect(actual).toEqual('');
+        expect(actual).toEqual('<p>Hello</p>World');
 
         actual = renderToString(
           <If condition={true}>
@@ -157,10 +157,10 @@ describe('If component', () => {
             !
           </If>
         );
-        expect(actual).toEqual('');
+        expect(actual).toEqual('<ul><li>Hello</li><li>World</li></ul>!');
       });
 
-      it('Should render only recognized logic nodes', () => {
+      it('Should only render conditional nodes when one or more present', () => {
         // Then
         let actual = renderToString(
           <If condition={true}>

@@ -1,6 +1,6 @@
 # If-Then-Else
 
-The missing conditional renderer that the React team forgot to ship.
+The missing conditional renderer that the React team didn't ship.
 
 Write clean UI components that can be read as a visual JS function.
 

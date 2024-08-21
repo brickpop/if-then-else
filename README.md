@@ -1,57 +1,104 @@
 # If-Then-Else
 
-The missing conditional renderer that the React team didn't ship.
+The missing conditional renderer that React forgot to include.
 
 Write clean UI components that can be read as a visual JS function.
 
-## Render a simple child when true
+## Rendering a simple child
+Using a simple `<If>` block:
+
 ```tsx
-<If condition={a && b && c}>
-   <p>The condition is true</p>
+<If true={ showGreeting }>
+   <p>This is a truthy condition</p>
+</If>
+<If not={ hideGreeting }>
+   <p>This is a falsy condition</p>
 </If>
 ```
 
-## Render a simple child when false
-```tsx
-<If not={a && b && c}>
-   <p>The condition is false</p>
-</If>
-```
+## Rendering nested if-then-else clauses
+Write readable nested conditions as you would in JavaScript. 
 
-## Render the first child with a matching condition
-
-```tsx
-<If condition={a && b && c}>
+```jsx
+<If none={[ isLoggedIn, isMember, isAdmin ]}>
   <Then>
-    <p>Condition 1 is true</p>
+    <p>You cannot access this section</p>
   </Then>
-  <ElseIf condition={ d && e }>
-    <p>Condition 2 is true</p>
+  <ElseIf val={age} below={18}>
+    <p>You cannot use this service</p>
   </ElseIf>
-  <ElseIf condition={ f || g }>
-    <p>Condition 3 is true</p>
+  <ElseIf not={isLoggedIn}>
+    <p>Please, log in</p>
   </ElseIf>
   <Else>
-    <p>The above conditions are false</p>
+    <p>Welcome to the service</p>
   </Else>
 </If>
 ```
 
-With negated conditions:
-```tsx
-<If not={a && b && c}>
-  <Then>
-    <p>Condition 1 is false</p>
-  </Then>
-  <ElseIf condition={ d && e }>
-    <p>Condition 2 is true</p>
-  </ElseIf>
-  <ElseIf not={ f || g }>
-    <p>Condition 3 is false</p>
-  </ElseIf>
-  <Else>
-    <p>No conditions match</p>
-  </Else>
+## Rendering a child when a comparison matches
+Show content based on easy to read value comparisons:
+
+```jsx
+<If val={a} is={3}>
+  <p>a equals 3</p>
+</If>
+<If val={a} isNot={3}>
+  <p>a is not equal to 3</p>
+</If>
+<If val={a} above={3}>
+  <p>a is greater than 3</p>
+</If>
+<If val={a} below={3}>
+  <p>a is lower than 3</p>
+</If>
+<If val={a} atLeast={3}>
+  <p>a is greater or equal to 3</p>
+</If>
+<If val={a} atMost={3}>
+  <p>a is greater or equal to 3</p>
+</If>
+```
+
+## Rendering a child given a list of conditions
+Show content based on many conditions:
+
+```jsx
+<If all={[ isMember, isAdmin ] }>
+  <p>You are logged as an admin</p>
+</If>
+<If some={[ isMember, isGuest ]}>
+  <p>You are logged in</p>
+</If>
+<If notAll={[ isLoggedIn, isAdmin ]}>
+  <p>The content is unavailable</p>
+</If>
+<If none={[ isMember, isManager, isAdmin ]}>
+  <p>You are not logged in</p>
+</If>
+```
+
+## Rendering given the length of an array
+You can even show content based on the length of an array:
+
+```jsx
+<If lengthOf={ members } is={3}>
+  <p>There are 3 members</p>
+</If>
+<If lengthOf={ members } isNot={3}>
+  <p>There aren't 3 members</p>
+</If>
+<If lengthOf={ members } above={3}>
+  <p>There are more than 3 members</p>
+</If>
+<If lengthOf={ members } below={3}>
+  <p>There are less than 3 members</p>
+</If>
+<If lengthOf={ members } atLeast={3}>
+  <p>There are 3 or more members</p>
+</If>
+<If lengthOf={ members } atMost={3}>
+  <p>There are 3 or less members</p>
 </If>
 ```
 

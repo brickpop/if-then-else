@@ -4,55 +4,95 @@ import * as ReactDOM from 'react-dom';
 import { If, Then, ElseIf, Else } from '../.';
 
 const App = () => {
-  const a = false,
-    b = true,
-    c = false,
-    d = true,
-    e = true,
-    f = false,
-    g = false;
+  const a = 3;
+  const showGreeting = true,
+    hideGreeting = false;
+  const isLoggedIn = true,
+    isMember = true,
+    isAdmin = false,
+    isGuest = false,
+    isManager = true;
+  const age = 24;
+  const members = ['John', 'Jane', 'Jim'];
 
   return (
     <div>
-      <If condition={a && b && c}>
-        <p>The condition is true</p>
+      <h1>Rendering if true or false</h1>
+      <If true={showGreeting}>
+        <p>Showing the greeting</p>
+      </If>
+      <If not={hideGreeting}>
+        <p>Still showing the greeting</p>
       </If>
 
-      <h1>Render a simple block when false</h1>
-      <If not={a && b && c}>
-        <p>The condition is false</p>
-      </If>
-
-      <h1>Render the first block with a condition that matches</h1>
-      <If condition={a && b && c}>
+      <h1>Rendering nested if, then, else if, else clauses</h1>
+      <If none={[isLoggedIn, isMember, isAdmin]}>
         <Then>
-          <p>Condition 1 is true</p>
+          <p>You cannot access this section</p>
         </Then>
-        <ElseIf condition={d && e}>
-          <p>Condition 2 is true</p>
+        <ElseIf val={age} below={18}>
+          <p>You cannot use this service</p>
         </ElseIf>
-        <ElseIf condition={f || g}>
-          <p>Condition 3 is true</p>
+        <ElseIf not={isLoggedIn}>
+          <p>Please, log in</p>
         </ElseIf>
         <Else>
-          <p>All conditions are false</p>
+          <p>Welcome to the service</p>
         </Else>
       </If>
 
-      <h1>With negated conditions</h1>
-      <If not={a && b && c}>
-        <Then>
-          <p>Condition 1 is false</p>
-        </Then>
-        <ElseIf condition={d && e}>
-          <p>Condition 2 is true</p>
-        </ElseIf>
-        <ElseIf not={f || g}>
-          <p>Condition 3 is false</p>
-        </ElseIf>
-        <Else>
-          <p>No conditions matched</p>
-        </Else>
+      <h1>Rendering by comparing a value</h1>
+      <If val={a} is={3}>
+        <p>a equals 3</p>
+      </If>
+      <If val={a} isNot={3}>
+        <p>a is not equal to 3</p>
+      </If>
+      <If val={a} above={3}>
+        <p>a is greater than 3</p>
+      </If>
+      <If val={a} below={3}>
+        <p>a is lower than 3</p>
+      </If>
+      <If val={a} atLeast={3}>
+        <p>a is greater or equal to 3</p>
+      </If>
+      <If val={a} atMost={3}>
+        <p>a is greater or equal to 3</p>
+      </If>
+
+      <h1>Rendering based on many conditions</h1>
+      <If all={[isMember, isAdmin]}>
+        <p>You are logged as an admin</p>
+      </If>
+      <If some={[isMember, isGuest]}>
+        <p>You are logged in</p>
+      </If>
+      <If notAll={[isLoggedIn, isAdmin]}>
+        <p>The content is unavailable</p>
+      </If>
+      <If none={[isMember, isManager, isAdmin]}>
+        <p>You are not logged in</p>
+      </If>
+
+      <h1>Rendering given an array's length</h1>
+      <If lengthOf={members} is={3}>
+        <p>There are 3 members</p>
+      </If>
+      <If lengthOf={members} isNot={3}>
+        <p>There aren't 3 members</p>
+      </If>
+      <If lengthOf={members} above={3}>
+        <p>There are more than 3 members</p>
+      </If>
+      <If lengthOf={members} below={3}>
+        <p>There are less than 3 members</p>
+      </If>
+      <If lengthOf={members} atLeast={3}>
+        <p>There are 3 or more members</p>
+      </If>
+      <If lengthOf={members} atMost={3}>
+        <p>There are 3 or less members</p>
       </If>
     </div>
   );
